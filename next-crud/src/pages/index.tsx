@@ -37,7 +37,7 @@ export default function Home() {
                     clienteExcluido={clienteExcluido}
             />
 */}
-            <Formulario/>
+            <Formulario cliente={clientes[0]}/>
         </Layout>
     </div>
   )
