@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import Tabela from "../components/Tabela";
 import Botao from "../components/Botao";
 import Formulario from "../components/Formulario";
+
 import useClientes from "../hooks/useClientes";
 
 export default function Home() {
@@ -34,7 +35,7 @@ export default function Home() {
                 <Formulario
                     cliente={cliente}
                     clienteMudou={salvarCliente}
-                    cancelado={() => exibirTabela}
+                    cancelado={exibirTabela}
                 />
             )}
         </Layout>

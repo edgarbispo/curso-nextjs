@@ -22,7 +22,7 @@ export default function UseClientes() {
         ]
     */
 
-    useEffect(obterTodos)
+    useEffect(obterTodos, [])
 
     function obterTodos() {
         repo.obterTodos().then(clientes => {
