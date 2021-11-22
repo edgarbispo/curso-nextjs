@@ -5,10 +5,9 @@ module.exports = {
         './src/components/**/*.{js,ts,jsx,tsx}'
     ],
     safelist:[
-        /ˆbg-/,
+        /^bg-/,
         /^to-/,
-        /^from-/
-    ]
+        /^from-/]
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
