@@ -4,6 +4,9 @@ import Head from 'next/head';
 import {GetServerSideProps} from "next";
 import {getSession} from "next-auth/client";
 
+// Client ID: AcIdRjSLKEIz4FWp8eeHpxTpK5AJ_pBpB7Y_FFuDj2C4AMJO27Fs0zExVkd1Mm6ni-QwFRE8XiXJJdaL
+//<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+
 interface DonateProps{
     user: {
         nome: string,
