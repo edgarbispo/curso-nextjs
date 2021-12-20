@@ -5,18 +5,56 @@ import {getSession} from "next-auth/client";
 import styles from './styles.module.scss';
 import {FiPlus, FiCalendar, FiEdit2, FiTrash, FiClock} from "react-icons/fi";
 import {SupportButton} from "../../components/SupportButton";
+import {FormEvent, useState} from "react";
 
-export default function Board() {
+import firebase from '../../services/firebaseConnection';
+
+interface BoardProps{
+    user:{
+        id: string,
+        nome: string
+    }
+}
+
+export default function Board({user}:BoardProps) {
+
+    const [input, setInput] = useState('');
+
+    async function handleAddTask(e: FormEvent){
+        e.preventDefault();
+
+        if (input === '') {
+            alert('Presença alguma tarefa');
+            return;
+        }
+
+        await firebase.firestore().collection('tarefas')
+            .add({
+                created: new Date(),
+                tarefa: input,
+                userId: user.id,
+                nome: user.nome
+            })
+            .then( () => {
+                console.log('Cadastrado com sucesso')
+            })
+            .catch((err) => {
+                console.log('Erro ao cadastrar')
+            })
+    }
+
     return (
         <>
             <Head>
                 <title>Minhas tarefas - Board</title>
             </Head>
             <main className={styles.container}>
-                <form>
+                <form onSubmit={handleAddTask}>
                     <input
                         type="text"
                         placeholder={"Digite sua tarefa..."}
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
                     />
                     <button
                         type={"submit"}>
@@ -76,10 +114,15 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
         }
     }
 
-    console.log(session.user);
+    const user = {
+        nome: session?.user.name,
+        id: session?.id
+    }
 
     return {
-        props: {}
+        props: {
+            user
+        }
     }
 }
 
