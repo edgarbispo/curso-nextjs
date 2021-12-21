@@ -8,6 +8,9 @@ import firebase from '../../services/firebaseConnection'
 import {PayPalButtons} from "@paypal/react-paypal-js";
 import {useState} from "react";
 
+import Image from 'next/image'
+import rocketImg from '../../../public/images/rocket.svg'
+
 // Client ID: AcIdRjSLKEIz4FWp8eeHpxTpK5AJ_pBpB7Y_FFuDj2C4AMJO27Fs0zExVkd1Mm6ni-QwFRE8XiXJJdaL
 //<script src="https://www.npm paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
 // E-MAIL DE TESTE: sb-vnrnf8594835@business.example.com
@@ -44,11 +47,11 @@ export default function Donate({user}: DonateProps){
                 <title>Ajude a plataforma ficar online</title>
             </Head>
             <main className={styles.container}>
-                <img src="/images/rocket.svg" alt="Seja Apoiador"/>
+                <Image src={rocketImg} alt="Seja Apoiador"/>
 
                 { vip && (
                     <div className={styles.vip}>
-                        <img src={user.image} alt="Foto de perfil do usuário"/>
+                        <Image width={50} height={50} src={user.image} alt="Foto de perfil do usuário"/>
                         <span>Parabéns você um novo apoiador</span>
                     </div>
                 )}
