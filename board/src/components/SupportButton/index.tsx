@@ -3,7 +3,7 @@ import styles from './styles.module.scss'
 export function SupportButton(){
     return(
         <div className={styles.doanteContainer}>
-            <Link href={"/donate"}>
+            <Link href={"/donate"} passHref>
                 <button>
                     Apoiar
                 </button>

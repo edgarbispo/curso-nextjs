@@ -151,7 +151,7 @@ export default function Board({user, data}:BoardProps) {
                     {taskList.map( task => (
                         <article key={task.id}
                             className={styles.taskList}>
-                            <Link href={`/board/${task.id}`}>
+                            <Link href={`/board/${task.id}`} passHref>
                                 <p>{task.tarefa}</p>
                             </Link>
                             <div className={styles.actions}>
