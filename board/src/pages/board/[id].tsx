@@ -6,6 +6,7 @@ import {format} from 'date-fns'
 import Head from 'next/head'
 import styles from './task.module.scss'
 import {FiCalendar} from 'react-icons/fi'
+import {redirect} from "next/dist/server/api-utils";
 
 type Task = {
     id: string,
@@ -74,6 +75,18 @@ export const getServerSideProps: GetServerSideProps = async ({req, params}) => {
 
             return JSON.stringify(data);
         })
+        .catch(() => {
+            return {};
+        })
+
+        if (Object.keys(data).length === 0) {
+            return {
+                redirect: {
+                    destination: '/board',
+                    permanent: false
+                }
+            }
+        }
 
     return {
         props:{
