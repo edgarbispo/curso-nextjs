@@ -1,17 +1,19 @@
 import {GetStaticProps} from "next";
+import {useState} from "react";
 import Head from 'next/head';
 
 import styles from './styles.module.scss';
 import Link from 'next/link';
 
 import Image from 'next/image';
-import thumbImg from '../../../public/images/thumb.png';
 
 import {FiChevronLeft, FiChevronsLeft, FiChevronRight, FiChevronsRight} from "react-icons/fi";
 
 import {getPrismicClient} from "../../services/prismic";
 import Prismic from "@prismicio/client";
 import {RichText} from 'prismic-reactjs';
+
+// https://png-pixel.com
 
 type Post ={
     slug: string;
@@ -25,9 +27,9 @@ interface PostProps{
     posts: Post[];
 }
 
-export default function Posts({posts}: PostProps){
+export default function Posts({posts: postsBlog}: PostProps){   //Renomeado a propriedade posts para postsBlog
 
-    //console.log(posts)
+    const [posts, setPosts] = useState(postsBlog || [])
 
     return(
         <>
@@ -36,19 +38,25 @@ export default function Posts({posts}: PostProps){
             </Head>
             <main className={styles.container}>
                 <div className={styles.posts}>
-                    <Link href={"/"}>
-                        <a>
-                            <Image src={thumbImg}
-                                   alt={"Post título 1"}
-                                   width={720}
-                                   height={410}
-                                   quality={100}
-                            />
-                            <strong>Criando meu primeiro aplicativo</strong>
-                            <time>14 JULHO 2021</time>
-                            <p>Hoje vamos criar o controle de mostrar a senha no input, uma opção para os nossos formulários de cadastro de login. Mas chega de conversa e bora pro código junto comigo que o vídeo está show de bola!</p>
-                        </a>
-                    </Link>
+
+                    {posts.map( post => (
+                        <Link key={post.slug} href={'/posts/${post.slug}'}>
+                            <a key={post.slug}>
+                                <Image src={post.cover}
+                                       alt={post.title}
+                                       width={720}
+                                       height={410}
+                                       quality={100}
+                                       placeholder={"blur"}     // As propriedades placeholder e blurDataURL coloca uma cor antes de carregar a imagem
+                                       blurDataURL={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAffcSJAAAADUlEQVR42mNkuPn/IgAFZAKrxUlgaAAAABJRU5ErkJggg=="}
+                                />
+                                <strong>{post.title}</strong>
+                                <time>{post.updatedAt}</time>
+                                <p>{post.description}</p>
+                            </a>
+                        </Link>
+                    ))}
+
 
                     <div className={styles.buttonNavigate}>
                         <div>
