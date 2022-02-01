@@ -5,6 +5,9 @@ import {getPrismicClient} from '../../services/prismic'
 import {RichText} from "prismic-reactjs";
 import {redirect} from "next/dist/server/api-utils";
 
+import Head from 'next/head'
+import Image from 'next/image'
+
 interface PostProps{
     post: {
         slug: string;
@@ -17,12 +20,29 @@ interface PostProps{
 
 export default function Post({post}: PostProps) {
 
-    console.log(post)
-
     return(
-        <div>
-            <h1>Detalhe do Post</h1>
-        </div>
+        <>
+            <Head>
+                <title>{post.title}</title>
+            </Head>
+
+            <main className={styles.container}>
+                <article className={styles.post}>
+                    <Image
+                        quality={100}
+                        src={post.cover}
+                        width={720}
+                        height={410}
+                        alt={post.title}
+                        placeholder={"blur"}
+                        blurDataURL={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAffcSJAAAADUlEQVR42mNkuPn/IgAFZAKrxUlgaAAAABJRU5ErkJggg=="}
+                    />
+                    <h1>{post.title}</h1>
+                    <time>{post.updateAt}</time>
+                    <div className={styles.postContent} dangerouslySetInnerHTML={{__html: post.description}}/> //Injetar o HTML que está sendo recebido
+                </article>
+            </main>
+        </>
     )
 }
 
