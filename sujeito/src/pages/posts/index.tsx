@@ -83,7 +83,7 @@ export default function Posts({posts: postsBlog, page, totalPage}: PostProps){  
                 <div className={styles.posts}>
 
                     {posts.map( post => (
-                        <Link key={post.slug} href={'/posts/${post.slug}'}>
+                        <Link key={post.slug} href={`/posts/${post.slug}`}>
                             <a key={post.slug}>
                                 <Image src={post.cover}
                                        alt={post.title}
