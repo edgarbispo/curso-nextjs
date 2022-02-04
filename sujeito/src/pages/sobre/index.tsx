@@ -94,7 +94,8 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
         props:{
             content
-        }
+        },
+        revalidate: 60 * 15 //a cada 15 min será revalidado
     }
 
 }
